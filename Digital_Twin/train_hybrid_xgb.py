@@ -22,7 +22,7 @@ from xgboost import XGBClassifier
 
 # Load dataset
 df = pd.read_parquet(
-    r"C:\Users\neeha\OneDrive\Desktop\ccdt_project\Digital_Twin\dataset\UNSW_NB15_testing-set.parquet"
+    r"Digital_Twin/dataset/UNSW_NB15_testing-set.parquet"
 )
 
 # Features and labels
@@ -297,3 +297,74 @@ joblib.dump(scaler, "unsw_scaler_hybrid.pkl")
 joblib.dump(iso, "isolation_forest.pkl")
 
 print("\nHybrid IDS Model Saved Successfully")
+
+import networkx as nx
+
+# -----------------------------
+# DIGITAL TWIN NODE GRAPH
+# -----------------------------
+
+G = nx.Graph()
+
+# Create nodes
+nodes = [
+    "IoT_Device_1",
+    "IoT_Device_2",
+    "Server",
+    "Firewall",
+    "Router",
+    "Database",
+    "Client_PC"
+]
+
+G.add_nodes_from(nodes)
+
+# Create connections
+edges = [
+    ("IoT_Device_1", "Router"),
+    ("IoT_Device_2", "Router"),
+    ("Router", "Firewall"),
+    ("Firewall", "Server"),
+    ("Server", "Database"),
+    ("Client_PC", "Firewall")
+]
+
+G.add_edges_from(edges)
+
+# Example attacked nodes
+attacked_nodes = [
+    "IoT_Device_2",
+    "Server"
+]
+
+# Node colors
+node_colors = []
+
+for node in G.nodes():
+
+    if node in attacked_nodes:
+        node_colors.append("red")
+
+    else:
+        node_colors.append("green")
+
+# Draw graph
+plt.figure(figsize=(10,7))
+
+pos = nx.spring_layout(G, seed=42)
+
+nx.draw(
+    G,
+    pos,
+    with_labels=True,
+    node_color=node_colors,
+    node_size=3000,
+    font_size=10,
+    font_weight="bold"
+)
+
+plt.title("Digital Twin Network Graph")
+
+plt.savefig("digital_twin_node_graph.png")
+
+plt.show() 
