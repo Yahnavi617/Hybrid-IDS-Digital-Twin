@@ -51,12 +51,12 @@ column_names = [
 ]
 
 train_df = pd.read_csv(
-    "Digital_Twin/dataset/KDDTrain+.txt",
+    "dataset/KDDTrain+.txt",
     names=column_names
 )
 
 test_df = pd.read_csv(
-    "Digital_Twin/dataset/KDDTest+.txt",
+    "dataset/KDDTest+.txt",
     names=column_names
 )
 

@@ -34,7 +34,7 @@ from xgboost import XGBClassifier
 # =====================================================
 
 df = pd.read_csv(
-    "Digital_Twin/dataset/CICIDS.csv"
+    "dataset/CICIDS.csv"
 )
 
 print(df.head())

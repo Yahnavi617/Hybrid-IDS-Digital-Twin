@@ -23,7 +23,7 @@ from xgboost import XGBClassifier
 
 # Load dataset
 df = pd.read_parquet(
-    r"Digital_Twin/dataset/UNSW_NB15_testing-set.parquet"
+    r"dataset/UNSW_NB15_testing-set.parquet"
 )
 
 # Features and labels
